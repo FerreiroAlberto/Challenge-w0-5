@@ -1,8 +1,15 @@
-// 1 Crea un generador de pirámides de asteriscos. El programa debe pedir al usuario la altura
-//de la pirámide y mostrarla en la consola.
-
-// 2 Crea una función que genere una contraseña aleatoria con letras mayúsculas, letras minúsculas
-//y números. Por parámetros se indicara la longitud, con un minimum de 6 caracteres.
+export function pyramid(height) {
+  const blanks = ' ';
+  const asterisks = '*';
+  for (let i = 0; i <= height; i++) {
+    console.log(
+      `${blanks.repeat(height - i)}${asterisks.repeat(
+        1 + i * 2
+      )}${blanks.repeat(height - i)}`
+    );
+  }
+  return blanks;
+}
 
 const getRandomLowerCase = () => {
   let abc = 'abcdefghijklmnñopqrstuvwxyz';
@@ -43,20 +50,6 @@ export function getRandomPassword(userChoice) {
   return password.join('');
 }
 
-//3 Crea una función que filtre un array de nombres y devuelva solo los nombres con menos
-//de cierta longitud.
-
-let names = [
-  'Ross',
-  'Rachel',
-  'Phoebe',
-  'Joey',
-  'Monica',
-  'Chandler',
-  'Bill',
-  'Mark',
-];
-
 export function getShorterNames(namesArray, maxLength) {
   let people = namesArray.length;
   let longNames = [];
@@ -68,11 +61,6 @@ export function getShorterNames(namesArray, maxLength) {
   }
   return longNames;
 }
-
-// 4 Crea una función que sume todos los números de un array y devuelva también la media,
-// mediana, moda y la suma total.
-
-let numArray = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29];
 
 export function getArrayData(inputArray) {
   let sum = 0;
@@ -92,18 +80,14 @@ export function getArrayData(inputArray) {
   }
   let result = { sum: sum, average: average, median: median };
 
-  console.log(sum, average, median);
+  return result;
 }
-
-//5 Crea una función que cuente la cantidad de palabras en una frase.
 
 export function countWords(userInput) {
   let inputArray = userInput.split(' ');
   let wordCount = inputArray.length;
   return wordCount;
 }
-
-//6 Crea una función que ordene un array de nombres alfabéticamente.
 
 export function sortNames(inputArray) {
   for (let i = 0; i < inputArray.length; i++) {
@@ -113,9 +97,6 @@ export function sortNames(inputArray) {
   }
   return inputArray.sort();
 }
-
-// 7 Generador de números pares e impares: Escribe una función que tome un número como argumento y genere dos arrays,
-//uno con los números pares hasta ese número y otro con los números impares hasta ese número.
 
 export function getOddsAndEvens(userNumber) {
   let odds = [];
@@ -134,17 +115,227 @@ export function getOddsAndEvens(userNumber) {
   return result;
 }
 
-console.log(getOddsAndEvens(35));
+export function kebabToCamel(kebabInput) {
+  let unKebab = kebabInput.split('-');
+  let camelArray = [];
+  let capitalLetters = [
+    'A',
+    'B',
+    'C',
+    'D',
+    'E',
+    'F',
+    'G',
+    'H',
+    'I',
+    'J',
+    'K',
+    'L',
+    'M',
+    'N',
+    'Ñ',
+    'O',
+    'P',
+    'Q',
+    'R',
+    'S',
+    'T',
+    'U',
+    'V',
+    'W',
+    'X',
+    'Y',
+    'Z',
+    'Á',
+    'É',
+    'Í',
+    'Ó',
+    'U',
+  ];
+  let underScore = ['_'];
+  for (let i = 0; i < kebabInput.length; i++) {
+    if (capitalLetters.includes(kebabInput[i])) {
+      return `The text contains capital letters`;
+    }
+  }
+  for (let i = 0; i < kebabInput.length; i++) {
+    if (underScore.includes(kebabInput[i])) {
+      return `The text contains underscores`;
+    }
+  }
 
-//8 Crea una función que reciba un texto en kebab-case y devuelva el texto escrito en camelCase.
-//La función debe realizar las siguientes comprobaciones sobre el texto recibido:
+  if (kebabInput === '') {
+    return `You must provide some text`;
+  }
 
-//Si tiene alguna mayúscula, debe devolver "The text contains capital letters"
-//Si tiene algún guion bajo, debe devolver "The text contains underscores"
-//Si el texto está vacío, debe devolver "You must provide some text"
-//Desafíos adicionales
+  for (let i = 0; i < unKebab.length; i++) {
+    if (i === 0) {
+      camelArray.push(unKebab[i]);
+    } else {
+      let arrayToUpper = unKebab[i].split('');
+      let first = arrayToUpper[0];
+      let firstToUpper = first.toUpperCase();
+      arrayToUpper.splice(0, 1);
+      arrayToUpper.unshift(firstToUpper);
+      let finalString = arrayToUpper.join('');
+      camelArray.push(finalString);
+    }
+  }
+  return camelArray.join('');
+}
 
-export function kebabToCamel(inputText) {
-  let unKebab = inputText.split('-');
-  for (let i = 0; i < unKebab.length; i++) {}
+const camelToKebab = (camelInput) => {
+  let capitalLetters = [
+    'A',
+    'B',
+    'C',
+    'D',
+    'E',
+    'F',
+    'G',
+    'H',
+    'I',
+    'J',
+    'K',
+    'L',
+    'M',
+    'N',
+    'Ñ',
+    'O',
+    'P',
+    'Q',
+    'R',
+    'S',
+    'T',
+    'U',
+    'V',
+    'W',
+    'X',
+    'Y',
+    'Z',
+    'Á',
+    'É',
+    'Í',
+    'Ó',
+    'U',
+  ];
+  let kebabArray = [];
+  let unCamel = camelInput.split('');
+
+  for (let i = 0; i < unCamel.length; i++) {
+    if (!capitalLetters.includes(unCamel[i])) {
+      kebabArray.push(unCamel[i]);
+    } else {
+      let lowerCaseLetter = unCamel[i].toLowerCase();
+      kebabArray.push('-');
+      kebabArray.push(lowerCaseLetter);
+    }
+  }
+  return kebabArray.join('');
+};
+
+const camelToSnake = (camelInput) => {
+  let capitalLetters = [
+    'A',
+    'B',
+    'C',
+    'D',
+    'E',
+    'F',
+    'G',
+    'H',
+    'I',
+    'J',
+    'K',
+    'L',
+    'M',
+    'N',
+    'Ñ',
+    'O',
+    'P',
+    'Q',
+    'R',
+    'S',
+    'T',
+    'U',
+    'V',
+    'W',
+    'X',
+    'Y',
+    'Z',
+    'Á',
+    'É',
+    'Í',
+    'Ó',
+    'U',
+  ];
+  let snakeArray = [];
+  let unCamel = camelInput.split('');
+
+  for (let i = 0; i < unCamel.length; i++) {
+    if (!capitalLetters.includes(unCamel[i])) {
+      snakeArray.push(unCamel[i]);
+    } else {
+      let lowerCaseLetter = unCamel[i].toLowerCase();
+      snakeArray.push('_');
+      snakeArray.push(lowerCaseLetter);
+    }
+  }
+  return snakeArray.join('');
+};
+
+const camelToPascal = (camelInput) => {
+  let unCamel = camelInput.split('');
+  let firstLetter = unCamel[0].toUpperCase();
+  unCamel.splice(0, 1);
+  unCamel.unshift(firstLetter);
+  return unCamel.join('');
+};
+
+export function camelTranslator(camelInput) {
+  let kebabText = camelToKebab(camelInput);
+  let snakeText = camelToSnake(camelInput);
+  let pascalText = camelToPascal(camelInput);
+  let translation = {
+    kebabText: kebabText,
+    snakeText: snakeText,
+    pascalText: pascalText,
+    camelText: camelInput,
+  };
+  return translation;
+}
+
+export function accentMarkReverser(inputText) {
+  let withMark = ['á', 'é', 'í', 'ó', 'ú'];
+  let withoutMark = ['a', 'e', 'i', 'o', 'u'];
+  let textArray = inputText.split('');
+  for (let i = 0; i < textArray.length; i++) {
+    if (withMark.includes(textArray[i])) {
+      let vowelIndex = withMark.indexOf(textArray[i]);
+      textArray[i] = withoutMark[vowelIndex];
+    } else if (withoutMark.includes(textArray[i])) {
+      let vowelIndex = withoutMark.indexOf(textArray[i]);
+      textArray[i] = withMark[vowelIndex];
+    }
+  }
+  return textArray.join('');
+}
+
+const capitalizer = (element) => {
+  let lowerCase = 'abcdefghijklmnñopqrstuvwxyzáéíóúü';
+  let upperCase = lowerCase.toUpperCase();
+  if (lowerCase.includes(element)) {
+    let index = lowerCase.indexOf(element);
+    element = upperCase[index];
+  } else if (upperCase.includes(element)) {
+    let index = upperCase.indexOf(element);
+    element = lowerCase[index];
+  }
+  return element;
+};
+
+export function capitalizationReverser(inputText) {
+  let inputArray = inputText.split('');
+  const reversedArray = inputArray.map(capitalizer);
+  return reversedArray.join('');
 }
