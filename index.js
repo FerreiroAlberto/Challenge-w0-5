@@ -37,10 +37,10 @@ console.log(
   getShorterNames(names, 5)
 );
 
-let numArray = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29];
+let numArray = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 2, 3, 5, 7, 7];
 
 console.log(
-  'Expected -> Object with: 129 - 12.90 - 12',
+  'Expected -> Object with: 153 - 10.20 - 7 - 7',
   getArrayData(numArray)
 );
 

@@ -78,7 +78,24 @@ export function getArrayData(inputArray) {
     let medianIndex2 = sortedArray.length / 2;
     median.push((sortedArray[medianIndex1] + sortedArray[medianIndex2]) / 2);
   }
-  let result = { sum: sum, average: average, median: median };
+  let mode;
+  let frequency = 0;
+
+  for (let i = 0; i < sortedArray.length; i++) {
+    let currentCount = 1;
+
+    while (sortedArray[i] === sortedArray[i + 1]) {
+      currentCount++;
+      i++;
+    }
+
+    if (currentCount > frequency) {
+      mode = sortedArray[i];
+      frequency = currentCount;
+    }
+  }
+
+  let result = { sum: sum, average: average, median: median, mode: mode };
 
   return result;
 }
