@@ -32,10 +32,6 @@ console.log(
   'Expected -> Names shorter than 5 letters ',
   getShorterNames(names, 5)
 );
-console.log(
-  'Expected -> Names shorter than 5 letters ',
-  getShorterNames(names, 5)
-);
 
 let numArray = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 2, 3, 5, 7, 7];
 

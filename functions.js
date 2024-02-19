@@ -10,6 +10,7 @@ export function pyramid(height) {
   }
   return blanks;
 }
+// Hay que quitar el console.log y no retornar el blank.
 
 const getRandomLowerCase = () => {
   let abc = 'abcdefghijklmnñopqrstuvwxyz';
@@ -33,17 +34,26 @@ export function getRandomPassword(userChoice) {
   if (userChoice < 6) {
     console.log('La contraseña debe tener un mínimo de 6 caracteres');
   } else {
-    for (let i = 0; i < userChoice; i++) {
-      let randomType = Math.floor(Math.random() * 3);
-      if (randomType === 0) {
-        let characterLower = getRandomLowerCase();
-        password.push(characterLower);
-      } else if (randomType === 1) {
-        let characterUpper = getRandomUpperCase();
-        password.push(characterUpper);
-      } else {
-        let characterNum = getRandomNumber();
-        password.push(characterNum);
+    let optionsArray = [];
+    while (
+      !optionsArray.includes(0) ||
+      !optionsArray.includes(1) ||
+      !optionsArray.includes(2)
+    ) {
+      optionsArray = [];
+      for (let i = 0; i < userChoice; i++) {
+        let randomType = Math.floor(Math.random() * 3);
+        optionsArray.push(randomType);
+        if (randomType === 0) {
+          let characterLower = getRandomLowerCase();
+          password.push(characterLower);
+        } else if (randomType === 1) {
+          let characterUpper = getRandomUpperCase();
+          password.push(characterUpper);
+        } else {
+          let characterNum = getRandomNumber();
+          password.push(characterNum);
+        }
       }
     }
   }
@@ -69,9 +79,9 @@ export function getArrayData(inputArray) {
   }
   let average = (sum / inputArray.length).toFixed(2);
   let median = [];
-  let sortedArray = inputArray.slice().sort((a, b) => a - b);
+  let sortedArray = inputArray.sort((a, b) => a - b);
   if (inputArray.length % 2 !== 0) {
-    let medianIndex = Math.floor(sortedArray.length / 2);
+    let medianIndex = Math.ceil(sortedArray.length / 2);
     median.push(sortedArray[medianIndex]);
   } else {
     let medianIndex1 = sortedArray.length / 2 - 1;
@@ -95,7 +105,7 @@ export function getArrayData(inputArray) {
     }
   }
 
-  let result = { sum: sum, average: average, median: median, mode: mode };
+  let result = { sum, average, median, mode };
 
   return result;
 }
@@ -167,22 +177,21 @@ export function kebabToCamel(kebabInput) {
     'É',
     'Í',
     'Ó',
-    'U',
+    'Ú',
   ];
   let underScore = ['_'];
   for (let i = 0; i < kebabInput.length; i++) {
     if (capitalLetters.includes(kebabInput[i])) {
       return `The text contains capital letters`;
-    }
-  }
-  for (let i = 0; i < kebabInput.length; i++) {
+    } // Esto se podría haber hecho más fácil con if kebab[i] === kebab[i].toUpperCase
+
     if (underScore.includes(kebabInput[i])) {
       return `The text contains underscores`;
     }
-  }
 
-  if (kebabInput === '') {
-    return `You must provide some text`;
+    if (kebabInput === '') {
+      return `You must provide some text`;
+    }
   }
 
   for (let i = 0; i < unKebab.length; i++) {
